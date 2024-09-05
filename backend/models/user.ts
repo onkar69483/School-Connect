@@ -8,6 +8,7 @@ interface IUser extends Document {
     phone: string;
     emergencyContact?: string;
     address: string;
+    avatar: Buffer;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -43,6 +44,11 @@ const userSchema = new mongoose.Schema<IUser>({
         type: String,
         required: [true, "Please enter your address"],
     },
+    avatar : {
+        type: 'Buffer',
+        public_id: String,
+        url: String, 
+    }
 });
 
 export default mongoose.model<IUser>("User", userSchema);
