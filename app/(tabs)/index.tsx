@@ -53,7 +53,7 @@ export default function HomeScreen() {
 
   const fetchApi = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/ ');
+      const res = await axios.get('http://localhost:8000/api/users');
       console.log(res.data);
     } catch (error) {
       console.log(error);

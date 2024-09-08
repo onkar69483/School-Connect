@@ -2,14 +2,17 @@ const express = require('express');
 
 const cors = require('cors');
 
+require('dotenv').config();
 const app = express();
 
-require('dotenv').config()
+
 require('./config/db');
 
 const mongoose = require('mongoose');
 // const userRouter = require('./routes/user');
 // app.use(userRouter);
+
+
 
 app.use(
     cors({
@@ -20,8 +23,8 @@ app.use(
     
 );
 
-app.get('/', (req, res) => {
-    res.send('<h1>Backend says hello</h1>')
+app.get('/api/users', (req, res) => {
+    res.send('<h1>Backend connected with proxy</h1>')
 })
 
 
