@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 const Notice = require('./backend/models/notice');
-mongoose.connect('mongodb+srv://mihirhebalkar07:Mihir2004@schoolConnect.8bl2k.mongodb.net/?retryWrites=true&w=majority&appName=schoolConnect', {
+mongoose.connect('', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
