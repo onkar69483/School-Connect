@@ -1,35 +1,50 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Button, TextInput, Modal, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, Modal, TextInput, TouchableOpacity, Button } from 'react-native';
+import axios from 'axios'; // Import axios for API calls
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface Notice {
-  id: number;
+  _id: string;
   title: string;
-  content: string;
+  notice: string;
   date: string;
+  time: string;
+  user: string; // Assuming user is just a string (can be adjusted based on actual data)
 }
 
-const NoticeBoard: React.FC = () => {
-  const [notices, setNotices] = useState<Notice[]>([
-    { id: 1, title: 'Sample Notice 1', content: 'This is the content of notice 1.', date: '2024-09-03' },
-    { id: 2, title: 'Sample Notice 2', content: 'This is the content of notice 2.', date: '2024-09-05' },
-  ]);
-
+const Notices: React.FC = () => {
+  const [notices, setNotices] = useState<Notice[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newTitle, setNewTitle] = useState('');
-  const [newContent, setNewContent] = useState('');
+  const [newNotice, setNewNotice] = useState('');
+
+  // Fetch notices from the backend API when the component mounts
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/notice'); // Update with your actual backend URL
+        setNotices(response.data);
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+      }
+    };
+
+    fetchNotices();
+  }, []);
 
   const handleAddNotice = () => {
-    if (newTitle && newContent) {
-      const newNotice: Notice = {
-        id: notices.length + 1,
+    if (newTitle && newNotice) {
+      const newNoticeItem: Notice = {
+        _id: (notices.length + 1).toString(), // Temporary ID (adjust as needed)
         title: newTitle,
-        content: newContent,
+        notice: newNotice,
         date: new Date().toISOString().split('T')[0],
+        time: new Date().toISOString().split('T')[1].split('.')[0], // Format time as HH:MM:SS
+        user: 'exampleUser', // Replace with actual user data if available
       };
-      setNotices([...notices, newNotice]);
+      setNotices([...notices, newNoticeItem]);
       setNewTitle('');
-      setNewContent('');
+      setNewNotice('');
       setModalVisible(false);
     } else {
       alert('Please fill in both the title and content.');
@@ -44,14 +59,17 @@ const NoticeBoard: React.FC = () => {
       <Text style={styles.header}>Notice Board</Text>
       <FlatList
         data={notices}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View style={styles.noticeItem}>
             <View style={styles.noticeContentContainer}>
               <Text style={styles.noticeTitle}>{item.title}</Text>
-              <Text style={styles.noticeContent}>{item.content}</Text>
+              <Text style={styles.noticeContent}>{item.notice}</Text>
             </View>
-            <Text style={styles.noticeDate}>{item.date}</Text>
+            <View style={styles.noticeDateContainer}>
+              <Text style={styles.noticeDate}>{item.date}</Text>
+              <Text style={styles.noticeTime}>{item.time}</Text>
+            </View>
           </View>
         )}
       />
@@ -80,8 +98,8 @@ const NoticeBoard: React.FC = () => {
               style={[styles.input, styles.textArea]}
               placeholder="Content"
               placeholderTextColor="#aaa"
-              value={newContent}
-              onChangeText={setNewContent}
+              value={newNotice}
+              onChangeText={setNewNotice}
               multiline={true}
               numberOfLines={4}
             />
@@ -141,7 +159,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#CCCCCC',
   },
+  noticeDateContainer: {
+    alignItems: 'flex-end',
+  },
   noticeDate: {
+    fontSize: 12,
+    color: '#AAAAAA',
+  },
+  noticeTime: {
     fontSize: 12,
     color: '#AAAAAA',
   },
@@ -206,4 +231,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NoticeBoard;
+export default Notices;

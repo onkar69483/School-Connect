@@ -1,15 +1,6 @@
-import mongoose, { Document } from "mongoose";
+const mongoose = require("mongoose");
 
-interface INotice extends Document {
-    noticeId: mongoose.Types.ObjectId;
-    date: Date;
-    time: string;
-    title: string;
-    notice: string;
-    user: mongoose.Types.ObjectId;
-}
-
-const noticeSchema = new mongoose.Schema<INotice>({
+const noticeSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, "Please enter the notice title"],
@@ -33,4 +24,4 @@ const noticeSchema = new mongoose.Schema<INotice>({
     },
 });
 
-export default mongoose.model<INotice>("Notice", noticeSchema);
+module.exports = mongoose.model("Notice", noticeSchema);

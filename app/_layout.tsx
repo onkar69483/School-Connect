@@ -9,7 +9,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import LoginScreen from '@/components/login/Login';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 

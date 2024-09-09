@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Image, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import LogoutButton from '@/components/login/LogoutButton';
+
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -104,8 +104,7 @@ const Profile = () => {
         )}
       </View>
 
-      {/* Logout Button Section */}
-      <LogoutButton />
+
     </ScrollView>
   );
 };
