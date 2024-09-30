@@ -4,7 +4,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 const app = express();
-const Notice = require("./models/notice");
+const Notice = require("./models/notice.ts");
 
 require("./config/db");
 
@@ -35,8 +35,6 @@ app.get("/api/notice", async (req, res) => {
     }
 });
 
-app.get("/api/notice/new", (req, res) => {});
-
 app.post("/api/notice", async (req, res) => {
     try {
         const { title, notice, user, date, time } = req.body;
@@ -53,6 +51,38 @@ app.post("/api/notice", async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+});
+
+app.delete("/api/notice/:id", async (req, res) => {
+    try {
+        const noticeId = req.params.id;
+        const deletedNotice = await Notice.findByIdAndDelete(noticeId);
+        if (!deletedNotice) {
+            return res.status(404).json({ error: "Notice not found." });
+        }
+        return res
+            .status(200)
+            .json({ message: "Notice deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting notice:", error);
+        return res.status(500).json({ error: "Internal server error." });
+    }
+});
+
+app.put("/api/notice/:id", async (req, res) => {
+    let notice = await Notice.findById(req.params.id);
+
+    if (!notice) {
+        return res.status(404).json({ error: "Notice not found." });
+    }
+
+    notice = await Notice.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    });
+
+    res.status(200).json({
+        notice,
+    });
 });
 
 app.listen("8000", () => {
