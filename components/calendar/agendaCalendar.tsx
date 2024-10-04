@@ -37,6 +37,7 @@ const ExpandableCalendarScreen = (props: Props) => {
             showTodayButton
             disabledOpacity={0.6}
             theme={todayBtnTheme.current}
+            style={styles.calendar}
         >
             {weekView ? (
                 <WeekCalendar
@@ -69,11 +70,11 @@ export default ExpandableCalendarScreen;
 
 const styles = StyleSheet.create({
     calendar: {
-        paddingLeft: 20,
-        paddingRight: 20,
+        backgroundColor: "#ffffff",
+        paddingTop: 20,
     },
     header: {
-        backgroundColor: "lightgrey",
+        backgroundColor: "#ffffff",
     },
     section: {
         backgroundColor: lightThemeColor,

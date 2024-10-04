@@ -9,26 +9,25 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import LoginScreen from '@/components/login/Login';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 
 SplashScreen.preventAutoHideAsync();
 
-function AuthLayout() {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+// function AuthLayout() {
+//   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
-  if (!isLoggedIn) {
-      return <LoginScreen />;
-  }
+//   if (!isLoggedIn) {
+//       return <LoginScreen />;
+//   }
 
-  return (
-      <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-      </Stack>
-  );
-}
+//   return (
+//       <Stack>
+//           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+//           <Stack.Screen name="+not-found" />
+//       </Stack>
+//   );
+// }
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -48,10 +47,10 @@ export default function RootLayout() {
 
     return (
         <Provider store={store}>
-                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                    {/* Conditionally render the LoginScreen */}
-                    <AuthLayout />
-                </ThemeProvider>
+            <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="+not-found" />
+            </Stack>
         </Provider>
     );
 }
