@@ -12,7 +12,8 @@ import {
 import axios from "axios";
 import DatePicker from "react-native-date-picker";
 import { LinearGradient } from "expo-linear-gradient";
-import { API_URL } from '@env';
+
+const API_URL = process.env.API_URL
 
 interface Notice {
     _id: string;
