@@ -20,8 +20,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.xlr8.SchoolConnect"
+      "package": "com.diamondhead.SchoolConnect"
     },
+    "package": "com.xlr8.SchoolConnect",
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -33,10 +34,10 @@
     "experiments": {
       "typedRoutes": true
     },
+    "eas": {
+      "projectId": "f70eeeea-c25d-41ca-be56-f49a4fc7fae1"
+    },
     "extra": {
-      "router": {
-        "origin": false
-      },
       "eas": {
         "projectId": "f70eeeea-c25d-41ca-be56-f49a4fc7fae1"
       }
