@@ -6,9 +6,10 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 export default function HomeScreen() {
+  const API_URL = "https://school-connect-server.vercel.app"
   const fetchApi = async () => {
     try {
-      const res = await axios.get(`${process.env.API_URL}/api/users`);
+      const res = await axios.get(`${API_URL}/api/users`);
       console.log(res.data);
     } catch (error) {
       console.log(error);
