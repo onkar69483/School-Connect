@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.xlr8.SchoolConnect"
+      "package": "com.diamondhead.SchoolConnect"
     },
     "web": {
       "bundler": "metro",
